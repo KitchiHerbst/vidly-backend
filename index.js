@@ -39,6 +39,10 @@ app.get('/api/genres/:id', (req, res) => {
 })
 
 app.post('/api/genres', (req, res) => {
+    const {error} = validateGenre(req.body.name)
+    if(error){
+        return res.send(error.details[0].message)
+    }
     const newGenre = {
         id: genres.length + 1,
         name: req.body.name
@@ -50,6 +54,9 @@ app.post('/api/genres', (req, res) => {
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`listening on ${port}`))
 
-// const validateGenre = (genre) => {
-//     const schema = Joi.object()
-// }
+const validateGenre = (genre) => {
+    const schema = Joi.object({
+        name: Joi.string().min(3).required()
+    })
+    return schema.validate({name: genre})
+}
