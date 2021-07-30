@@ -51,6 +51,20 @@ app.post('/api/genres', (req, res) => {
     res.send(genres)
 })
 
+app.put('/api/genres/:id', (req, res) => {
+    const genre = genres.find(g => g.id === parseInt(req.params.id))
+
+    const {error} = validateGenre(req.body.name)
+    if(error){
+        return res.send(error.details[0].message)
+    }
+
+    genre.name = req.body.name
+    res.send(genre)
+})
+
+
+
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`listening on ${port}`))
 
