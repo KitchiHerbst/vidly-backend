@@ -5,6 +5,14 @@ const Joi = require("joi");
 // this sets up our express app allowing us to use get, put, post, delete
 const app = express();
 app.use(express.json());
+app.use((req, res, next) => {
+    console.log('logging...')
+    next()
+});
+app.use((req, res, next) => {
+    console.log('Authenticating')
+    next()
+});
 
 let genres = [
   {
