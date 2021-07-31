@@ -1,7 +1,10 @@
+const config = require('config')
 //needed to import the express module
 const express = require("express");
 const Joi = require("joi");
 const helmet = require("helmet")
+const morgan = require("morgan")
+
 //local imports
 const log = require('./logger')
 const auth = require('./authentication')
@@ -9,6 +12,11 @@ const auth = require('./authentication')
 // this sets up our express app allowing us to use get, put, post, delete
 const app = express();
 
+
+if (app.get('env') === 'development'){
+    app.use(morgan('tiny'))
+    console.log('Morgan enabled')
+}
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
