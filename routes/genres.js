@@ -1,24 +1,25 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
+const Joi = require("joi");
 
 let genres = [
-    {
-      id: 1,
-      name: "horror",
-    },
-    {
-      id: 2,
-      name: "comedy",
-    },
-    {
-      id: 3,
-      name: "thriller",
-    },
-    {
-      id: 4,
-      name: "romance",
-    },
-  ];
+  {
+    id: 1,
+    name: "horror",
+  },
+  {
+    id: 2,
+    name: "comedy",
+  },
+  {
+    id: 3,
+    name: "thriller",
+  },
+  {
+    id: 4,
+    name: "romance",
+  },
+];
 
 router.get("/", (req, res) => {
   res.send(genres);
@@ -62,4 +63,11 @@ router.delete("/:id", (req, res) => {
   res.send(genres);
 });
 
-module.exports = router
+const validateGenre = (genre) => {
+  const schema = Joi.object({
+    name: Joi.string().min(3).required(),
+  });
+  return schema.validate({ name: genre });
+};
+
+module.exports = router;

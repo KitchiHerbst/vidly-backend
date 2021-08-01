@@ -1,17 +1,16 @@
-const config = require("config");
-//needed to import the express module
+// const config = require("config");
 const express = require("express");
-const Joi = require("joi");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const debug = require("debug")("app:startup");
 
 //local imports
-const log = require("./logger");
-const auth = require("./authentication");
+// const log = require("./logger");
+// const auth = require("./authentication");
 const genres = require('./routes/genres')
+const home = require('./routes/home')
 
-// this sets up our express app allowing us to use get, put, post, delete
+// this sets up our express app
 const app = express();
 
 if (app.get("env") === "development") {
@@ -23,20 +22,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use('/api/genres', genres)
-
-
-app.get("/", (req, res) => {
-  res.send('Vidly')
-});
+app.use('/', home)
 
 
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`listening on ${port}`));
 
-const validateGenre = (genre) => {
-  const schema = Joi.object({
-    name: Joi.string().min(3).required(),
-  });
-  return schema.validate({ name: genre });
-};
+
