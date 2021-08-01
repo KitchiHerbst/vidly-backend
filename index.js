@@ -22,6 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 
+// app.set('view engine','pug')
+//default
+// app.set('views', './views')
+
 // app.use(log)
 // app.use(auth)
 
@@ -45,7 +49,7 @@ let genres = [
 ];
 
 app.get("/", (req, res) => {
-  res.send("bingo bongo");
+  res.send('Vidly')
 });
 
 app.get("/api/genres", (req, res) => {
