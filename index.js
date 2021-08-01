@@ -1,27 +1,26 @@
-const config = require('config')
+const config = require("config");
 //needed to import the express module
 const express = require("express");
 const Joi = require("joi");
-const helmet = require("helmet")
-const morgan = require("morgan")
+const helmet = require("helmet");
+const morgan = require("morgan");
+const debug = require("debug")("app:startup");
 
 //local imports
-const log = require('./logger')
-const auth = require('./authentication')
+const log = require("./logger");
+const auth = require("./authentication");
 
 // this sets up our express app allowing us to use get, put, post, delete
 const app = express();
 
-
-if (app.get('env') === 'development'){
-    app.use(morgan('tiny'))
-    console.log('Morgan enabled')
+if (app.get("env") === "development") {
+  app.use(morgan("tiny"));
+  debug('Morgan Enabled')
 }
 //middleware
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(helmet())
-
+app.use(express.urlencoded({ extended: true }));
+app.use(helmet());
 
 // app.use(log)
 // app.use(auth)
