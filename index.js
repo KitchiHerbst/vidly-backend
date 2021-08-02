@@ -5,8 +5,6 @@ const morgan = require("morgan");
 const debug = require("debug")("app:startup");
 
 //local imports
-// const log = require("./logger");
-// const auth = require("./authentication");
 const genres = require('./routes/genres')
 const home = require('./routes/home')
 
