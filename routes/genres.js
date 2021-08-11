@@ -1,46 +1,51 @@
 const express = require("express");
 const router = express.Router();
 const Joi = require("joi");
+const mongoose = require("mongoose");
 
-let genres = [
-  {
-    id: 1,
-    name: "horror",
-  },
-  {
-    id: 2,
-    name: "comedy",
-  },
-  {
-    id: 3,
-    name: "thriller",
-  },
-  {
-    id: 4,
-    name: "romance",
-  },
-];
 
-router.get("/", (req, res) => {
+const Genre = new mongoose.model("Genre", new mongoose.Schema({
+    name: {
+      type: String,
+      required: true,
+      minlength: 3,
+      maxlength: 20,
+    },
+  })
+);
+
+
+router.get("/", async (req, res) => {
+  const genres = await Genre.find().sort('name')
   res.send(genres);
 });
 
-router.get("/:id", (req, res) => {
-  const genre = genres.find((g) => g.id === parseInt(req.params.id));
+router.get("/:id", async (req, res) => {
+  const genre = await Genre.find((g) => g.id === parseInt(req.params.id));
   res.send(genre);
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { error } = validateGenre(req.body.name);
   if (error) {
     return res.send(error.details[0].message);
   }
-  const newGenre = {
-    id: genres.length + 1,
+  const newGenre = await new Genre({
     name: req.body.name,
-  };
-  genres.push(newGenre);
-  res.send(genres);
+  })
+
+  try {
+    const result = newGenre.save()
+    console.log(result)
+    res.send(result)
+  }
+  catch(ex) {
+    console.log(ex.message)
+    res.send(ex.message)
+  }
+  
+  
+  res.send(newGenre);
 });
 
 router.put("/:id", (req, res) => {

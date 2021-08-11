@@ -4,12 +4,17 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const debug = require("debug")("app:startup");
 
+const mongoose = require('mongoose')
+
 //local imports
 const genres = require('./routes/genres')
 const home = require('./routes/home')
 
 // this sets up our express app
 const app = express();
+mongoose.connect('mongodb://localhost/vidly')
+  .then(() => console.log('Connected to MongoDB...') )
+  .catch(() => console.error('Cant connect to mongodb'))
 
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
