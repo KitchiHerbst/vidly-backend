@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
   })
 
   try {
-    const result = newGenre.save()
+    const result = await newGenre.save()
     console.log(result)
     res.send(result)
   }
@@ -45,11 +45,10 @@ router.post("/", async (req, res) => {
   }
   
   
-  res.send(newGenre);
 });
 
-router.put("/:id", (req, res) => {
-  const genre = genres.find((g) => g.id === parseInt(req.params.id));
+router.put("/:id", async (req, res) => {
+  const genre = await Genre.find((g) => g.id === parseInt(req.params.id));
 
   const { error } = validateGenre(req.body.name);
   if (error) {
