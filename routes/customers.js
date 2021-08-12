@@ -4,7 +4,6 @@ const router = express.Router();
 //local imports
 const Customer = require("../models/customer")
 
-
 router.get("/", async (req, res) => {
   const customers = await Customer.find();
   res.send(customers);
