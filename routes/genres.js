@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Joi = require("joi");
+const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 
 
@@ -21,7 +22,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const genre = await Genre.find((g) => g.id === parseInt(req.params.id));
+  const genre = await Genre.findById(req.params.id)
   res.send(genre);
 });
 
@@ -48,7 +49,7 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const genre = await Genre.find((g) => g.id === parseInt(req.params.id));
+  const genre = await Genre.findById(req.params.id)
 
   const { error } = validateGenre(req.body.name);
   if (error) {
@@ -56,15 +57,18 @@ router.put("/:id", async (req, res) => {
   }
 
   genre.name = req.body.name;
-  res.send(genre);
+  const updatedGenre = await genre.save()
+  res.send(updatedGenre);
 });
 
-router.delete("/:id", (req, res) => {
-  const genre = genres.find((g) => g.id === parseInt(req.params.id));
-
-  const index = genres.indexOf(genre);
-  genres.splice(index, 1);
-  res.send(genres);
+router.delete("/:id", async (req, res) => {
+  try{
+    await Genre.deleteOne({_id: req.params.id})
+    res.send(await Genre.find())
+  }
+  catch(ex){
+    res.send(ex.message)
+  }
 });
 
 const validateGenre = (genre) => {
