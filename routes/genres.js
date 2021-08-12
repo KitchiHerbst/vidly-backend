@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const Joi = require("joi");
-const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 
-
-const Genre = new mongoose.model("Genre", new mongoose.Schema({
+const Genre = new mongoose.model(
+  "Genre",
+  new mongoose.Schema({
     name: {
       type: String,
       required: true,
@@ -15,14 +15,13 @@ const Genre = new mongoose.model("Genre", new mongoose.Schema({
   })
 );
 
-
 router.get("/", async (req, res) => {
-  const genres = await Genre.find().sort('name')
+  const genres = await Genre.find().sort("name");
   res.send(genres);
 });
 
 router.get("/:id", async (req, res) => {
-  const genre = await Genre.findById(req.params.id)
+  const genre = await Genre.findById(req.params.id);
   res.send(genre);
 });
 
@@ -31,25 +30,18 @@ router.post("/", async (req, res) => {
   if (error) {
     return res.send(error.details[0].message);
   }
-  const newGenre = await new Genre({
-    name: req.body.name,
-  })
+  const newGenre = new Genre({ name: req.body.name });
 
   try {
-    const result = await newGenre.save()
-    console.log(result)
-    res.send(result)
+    const result = await newGenre.save();
+    res.send(result);
+  } catch (ex) {
+    res.send(ex.message);
   }
-  catch(ex) {
-    console.log(ex.message)
-    res.send(ex.message)
-  }
-  
-  
 });
 
 router.put("/:id", async (req, res) => {
-  const genre = await Genre.findById(req.params.id)
+  const genre = await Genre.findById(req.params.id);
 
   const { error } = validateGenre(req.body.name);
   if (error) {
@@ -57,17 +49,16 @@ router.put("/:id", async (req, res) => {
   }
 
   genre.name = req.body.name;
-  const updatedGenre = await genre.save()
+  const updatedGenre = await genre.save();
   res.send(updatedGenre);
 });
 
 router.delete("/:id", async (req, res) => {
-  try{
-    await Genre.deleteOne({_id: req.params.id})
-    res.send(await Genre.find())
-  }
-  catch(ex){
-    res.send(ex.message)
+  try {
+    await Genre.deleteOne({ _id: req.params.id });
+    res.send(await Genre.find());
+  } catch (ex) {
+    res.send(ex.message);
   }
 });
 
