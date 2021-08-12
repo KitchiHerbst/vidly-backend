@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const Joi = require("joi");
+
 
 //local imports
-const Genre = require("../models/genre")
+const {Genre, validate} = require("../models/genre")
 
 router.get("/", async (req, res) => {
   const genres = await Genre.find().sort("name");
@@ -16,7 +16,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { error } = validateGenre(req.body.name);
+  const { error } = validate(req.body.name);
   if (error) {
     return res.send(error.details[0].message);
   }
@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const genre = await Genre.findById(req.params.id);
 
-  const { error } = validateGenre(req.body.name);
+  const { error } = validate(req.body.name);
   if (error) {
     return res.send(error.details[0].message);
   }
@@ -52,11 +52,5 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-const validateGenre = (genre) => {
-  const schema = Joi.object({
-    name: Joi.string().min(3).required(),
-  });
-  return schema.validate({ name: genre });
-};
 
 module.exports = router;
