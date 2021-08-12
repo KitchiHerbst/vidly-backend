@@ -11,6 +11,7 @@ const genres = require('./routes/genres')
 const home = require('./routes/home')
 const customers = require('./routes/customers');
 const { custom } = require("joi");
+const movies = require("./routes/movies")
 
 // this sets up our express app
 const app = express();
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use('/api/genres', genres)
 app.use('/api/customers', customers)
+app.use('/api/movies', movies)
 app.use('/', home)
 
 

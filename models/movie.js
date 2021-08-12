@@ -2,19 +2,19 @@ const mongoose = require("mongoose");
 const Joi = require("Joi");
 
 //local imports
-const { Genre, validate } = require("./genre");
+const { genreSchema } = require("../models/genre");
 
 const Movie = new mongoose.model(
   "Movie",
   new mongoose.Schema({
-    title: { type: String, required: true },
-    genre: { type: Genre, required: true },
+    title: { type: String, required: true, trim: true, minlength: 2, maxlength: 50 },
+    genre: { type: genreSchema, required: true },
     numberInStock: { type: Number, default: 0 },
     dailyRentalRate: { type: Number, default: 0 },
   })
 );
 
-const validate = (movie) => {
+const validateMovie = (movie) => {
   const schema = new Joi.object({
     title: Joi.string().required(),
     numberInStock: Joi.number(),
@@ -22,10 +22,11 @@ const validate = (movie) => {
   });
   return schema.validate({
     title: movie.title,
+    genre: movie.genre,
     numberInStock: movie.numberInStock,
     dailyRentalRate: movie.dailyRentalRate,
   });
 };
 
 exports.Movie = Movie;
-exports.validate = validate;
+exports.validate = validateMovie;
