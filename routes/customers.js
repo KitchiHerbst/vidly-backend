@@ -54,4 +54,13 @@ router.put("/:id", async (req, res) => {
     res.send(result)
 })
 
+router.delete("/:id", async (req, res) => {
+    try {
+        await Customer.deleteOne({ _id: req.params.id });
+        res.send(await Customer.find());
+      } catch (ex) {
+        res.send(ex.message);
+      }
+})
+
 module.exports = router
