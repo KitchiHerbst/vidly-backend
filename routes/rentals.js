@@ -27,20 +27,28 @@ router.post("/", async (req, res) => {
     return res.status("400").send("Customer not found");
   }
 
-  if(movie.numberInStock === 0) return res.send(`Sorry ${movie.title} is unavaiable`)
+  if (movie.numberInStock === 0)
+    return res.send(`Sorry ${movie.title} is unavaiable`);
 
   const newRental = new Rental({
-    movie: { title: movie.title, dailyRentalRate: movie.dailyRentalRate },
+    movie: {
+      _id: movie._id,
+      title: movie.title,
+      dailyRentalRate: movie.dailyRentalRate,
+    },
     customer: {
+      _id: customer._id,
       name: customer.name,
       isGold: customer.isGold,
       phone: customer.phone,
     },
-    dateOut: Date.now(),
-    rentalFee: (customer.isGold) ? 3 : 5
   });
 
   result = await newRental.save();
+
+  movie.numberInStock--;
+  movie.save();
+
   res.send(result);
 });
 
