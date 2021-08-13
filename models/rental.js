@@ -3,7 +3,7 @@ const Joi = require("joi");
 
 //local imports
 const { customerSchema } = require("./customer");
-const { rentalSchema } = require("./rental");
+const { movieSchema } = require("./movie");
 
 const rentalSchema = new mongoose.Schema({
   customer: { type: customerSchema, required: true },
