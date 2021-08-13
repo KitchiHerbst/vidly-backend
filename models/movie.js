@@ -14,18 +14,19 @@ const Movie = new mongoose.model(
   })
 );
 
-const validateMovie = (movie) => {
+const validateMovie = ({title, genreId, numberInStock, dailyRentalRate}) => {
   const schema = new Joi.object({
     title: Joi.string().required(),
-    genre: Joi.object().required(),
+    genreId: Joi.string().required(),
     numberInStock: Joi.number(),
     dailyRentalRate: Joi.number(),
   });
+  
   return schema.validate({
-    title: movie.title,
-    genre: movie.genre,
-    numberInStock: movie.numberInStock,
-    dailyRentalRate: movie.dailyRentalRate,
+    title: title,
+    genreId: genreId,
+    numberInStock: numberInStock,
+    dailyRentalRate: dailyRentalRate,
   });
 };
 
