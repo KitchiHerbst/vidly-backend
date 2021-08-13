@@ -1,13 +1,45 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 
-//local imports
-const { customerSchema } = require("./customer");
-const { movieSchema } = require("./movie");
 
 const rentalSchema = new mongoose.Schema({
-  customer: { type: customerSchema, required: true },
-  movie: { type: movieSchema, required: true },
+  customer: {
+    type: new mongoose.Schema({
+      name: {
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 50,
+      },
+      phone: {
+        type: String,
+        required: true,
+        default: "0000000",
+      },
+      isGold: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
+    }),
+    required: true,
+  },
+  movie: {
+    type: new mongooseSchema({
+      title: {
+        type: String,
+        required: true,
+        trim: true,
+        minlength: 0,
+        maxlength: 50,
+      },
+      dailyRentalRate: { type: Number, min: 0, required: true },
+    }),
+    required: true,
+  },
+  dateOut: { type: Date, required: true, default: Date.now },
+  dateReturned: { type: Date },
+  rentalFee: { type: Number, required: true, min: 0 },
 });
 
 const Rental = new mongoose.model("Rental", rentalSchema);
