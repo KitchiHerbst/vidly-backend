@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const Fawn = require("fawn")
-const mongoose = require("mongoose")
+const Fawn = require("fawn");
+const mongoose = require("mongoose");
 
 //local imports
 const { Rental, validate } = require("../models/rental");
 const { Movie } = require("../models/movie");
 const { Customer } = require("../models/customer");
 
-Fawn.init(mongoose)
+Fawn.init(mongoose);
 
 router.get("/", async (req, res) => {
   const rentals = await Rental.find();
@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
   if (movie.numberInStock === 0)
     return res.send(`Sorry ${movie.title} is unavaiable`);
 
-  const newRental = new Rental({
+  const rental = new Rental({
     movie: {
       _id: movie._id,
       title: movie.title,
@@ -48,12 +48,27 @@ router.post("/", async (req, res) => {
     },
   });
 
-  result = await newRental.save();
+  try {
+    new Fawn.Task()
+      .save("rentals", rental)
+      .update(
+        "movies",
+        { _id: movie._id },
+        {
+          $inc: { numberInStock: -1 },
+        }
+      )
+      .run();
 
-  movie.numberInStock--;
-  movie.save();
+    res.send(rental);
+  } catch (ex) {}
 
-  res.send(result);
+  //   result = await newRental.save();
+
+  //   movie.numberInStock--;
+  //   movie.save();
+
+
 });
 
 module.exports = router;
