@@ -61,13 +61,9 @@ router.post("/", async (req, res) => {
       .run();
 
     res.send(rental);
-  } catch (ex) {}
-
-  //   result = await newRental.save();
-
-  //   movie.numberInStock--;
-  //   movie.save();
-
+  } catch (ex) {
+    res.status("500").send("Something failed");
+  }
 
 });
 
