@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const Fawn = require("fawn")
+const mongoose = require("mongoose")
 
 //local imports
 const { Rental, validate } = require("../models/rental");
 const { Movie } = require("../models/movie");
 const { Customer } = require("../models/customer");
+
+Fawn.init(mongoose)
 
 router.get("/", async (req, res) => {
   const rentals = await Rental.find();
