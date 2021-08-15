@@ -3,6 +3,8 @@ const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const debug = require("debug")("app:startup");
+const Joi = require("joi");
+Joi.objectId = require("joi-objectid")(Joi)
 
 const mongoose = require('mongoose')
 

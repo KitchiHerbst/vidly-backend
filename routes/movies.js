@@ -24,15 +24,21 @@ router.post("/", async (req, res) => {
   const genre = await Genre.findById(req.body.genreId);
   if (!genre) return res.status(400).send(error.details[0].message);
 
-  const newMovie = new Movie({
+  const movie = new Movie({
     title: req.body.title,
     genre: { _id: genre._id, name: genre.name },
     numberInStock: req.body.numberInStock,
     dailyRentalRate: req.body.dailyRentalRate,
   });
 
-  const result = await newMovie.save();
-  res.send(result);
+  try{
+    await movie.save();
+    res.send(movie);
+  }
+  catch(ex){
+    res.status('400').send("Can't create movie at this time")
+  }
+
 });
 
 router.put("/:id", async (req, res) => {

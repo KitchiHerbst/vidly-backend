@@ -23,8 +23,8 @@ router.post("/", async (req, res) => {
   const newGenre = new Genre({ name: req.body.name });
 
   try {
-    const result = await newGenre.save();
-    res.send(result);
+    await newGenre.save();
+    res.send(newGenre);
   } catch (ex) {
     res.send(ex.message);
   }
@@ -39,8 +39,14 @@ router.put("/:id", async (req, res) => {
   }
 
   genre.name = req.body.name;
-  const updatedGenre = await genre.save();
-  res.send(updatedGenre);
+  try{
+    await genre.save();
+    res.send(updatedGenre);
+  }
+  catch(ex){
+    res.status('400').send("Can't update genre right now")
+  }
+ 
 });
 
 router.delete("/:id", async (req, res) => {

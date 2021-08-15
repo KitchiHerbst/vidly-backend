@@ -30,8 +30,14 @@ router.post("/", async (req, res) => {
     phone: req.body.phone,
   });
 
-  const result = await newCustomer.save();
-  res.send(result);
+  try{
+    await newCustomer.save();
+    res.send(newCustomer);
+  }
+  catch(ex){
+    res.status('400').send("Can't create account right now")
+  }
+  
 });
 
 router.put("/:id", async (req, res) => {
@@ -50,8 +56,13 @@ router.put("/:id", async (req, res) => {
     isGold: req.body.isGold,
     phone: req.body.phone,
   });
-  const result = await updatedCustomer.save();
-  res.send(result);
+  try{
+    await updatedCustomer.save();
+    res.send(updatedCustomer);
+  }
+  catch(ex){
+    res.status('400').send('Having trouble saving account details')
+  }
 });
 
 router.delete("/:id", async (req, res) => {
