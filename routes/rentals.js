@@ -18,17 +18,17 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) {
-    return res.status("400").send(error.details[0].message);
+    return res.status(400).send(error.details[0].message);
   }
 
   const movie = await Movie.findById(req.body.movieId);
   if (!movie) {
-    return res.status("400").send("Movie not found");
+    return res.status(400).send("Movie not found");
   }
 
   const customer = await Customer.findById(req.body.customerId);
   if (!customer) {
-    return res.status("400").send("Customer not found");
+    return res.status(400).send("Customer not found");
   }
 
   if (movie.numberInStock === 0)

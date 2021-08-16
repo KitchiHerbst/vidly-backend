@@ -18,12 +18,14 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) {
-    return res.status(400).send('Invalid request');
+    console.log('error')
+    return res.status(400).send(error.details[0].message);
   }
 
   const genre = await Genre.findById(req.body.genreId);
-  if (!genre) return res.status(400).send(error.details[0].message);
-
+  if (!genre) {
+    return res.status(400).send("Genre not found");
+  }
   const movie = new Movie({
     title: req.body.title,
     genre: { _id: genre._id, name: genre.name },
@@ -31,14 +33,12 @@ router.post("/", async (req, res) => {
     dailyRentalRate: req.body.dailyRentalRate,
   });
 
-  try{
+  try {
     await movie.save();
     res.send(movie);
+  } catch (ex) {
+    res.status(400).send("Can't create movie at this time");
   }
-  catch(ex){
-    res.status('400').send("Can't create movie at this time")
-  }
-
 });
 
 router.put("/:id", async (req, res) => {
@@ -48,7 +48,7 @@ router.put("/:id", async (req, res) => {
   }
 
   const genre = await Genre.findById(req.body.genreId);
-  if (!genre) return res.status(400).send('invalid Genre');
+  if (!genre) return res.status(400).send("invalid Genre");
 
   const movie = await Movie.findById(req.params.id);
 

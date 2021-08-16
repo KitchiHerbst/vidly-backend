@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
-const Joi = require("Joi");
+const Joi = require("joi");
 
 //local imports
 const { genreSchema } = require("../models/genre");
+// Joi.objectId = require("joi-objectid");
 
 const movieSchema = new mongoose.Schema({
   title: {

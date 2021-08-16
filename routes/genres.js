@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
     await newGenre.save();
     res.send(newGenre);
   } catch (ex) {
-    res.send(ex.message);
+    res.status(400).send(ex.message);
   }
 });
 
@@ -44,7 +44,7 @@ router.put("/:id", async (req, res) => {
     res.send(updatedGenre);
   }
   catch(ex){
-    res.status('400').send("Can't update genre right now")
+    res.status(400).send("Can't update genre right now")
   }
  
 });
