@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-
+const auth = require("../middleware/auth");
 
 //local imports
-const {Genre, validate} = require("../models/genre")
+const { Genre, validate } = require("../models/genre");
 
 router.get("/", async (req, res) => {
   const genres = await Genre.find().sort("name");
@@ -15,7 +15,7 @@ router.get("/:id", async (req, res) => {
   res.send(genre);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = validate(req.body.name);
   if (error) {
     return res.send(error.details[0].message);
@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   const genre = await Genre.findById(req.params.id);
 
   const { error } = validate(req.body.name);
@@ -39,17 +39,15 @@ router.put("/:id", async (req, res) => {
   }
 
   genre.name = req.body.name;
-  try{
+  try {
     await genre.save();
     res.send(updatedGenre);
+  } catch (ex) {
+    res.status(400).send("Can't update genre right now");
   }
-  catch(ex){
-    res.status(400).send("Can't update genre right now")
-  }
- 
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   try {
     await Genre.deleteOne({ _id: req.params.id });
     res.send(await Genre.find());
@@ -57,6 +55,5 @@ router.delete("/:id", async (req, res) => {
     res.send(ex.message);
   }
 });
-
 
 module.exports = router;

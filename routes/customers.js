@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../middleware/auth");
 
 //local imports
 const { Customer, validate } = require("../models/customer");
@@ -14,7 +15,7 @@ router.get("/:id", async (req, res) => {
   res.send(customer);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = validate({
     name: req.body.name,
     phone: req.body.phone,
@@ -30,17 +31,15 @@ router.post("/", async (req, res) => {
     phone: req.body.phone,
   });
 
-  try{
+  try {
     await newCustomer.save();
     res.send(newCustomer);
+  } catch (ex) {
+    res.status("400").send("Can't create account right now");
   }
-  catch(ex){
-    res.status('400').send("Can't create account right now")
-  }
-  
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   const { error } = validate({
     name: req.body.name,
     phone: req.body.phone,
@@ -56,16 +55,15 @@ router.put("/:id", async (req, res) => {
     isGold: req.body.isGold,
     phone: req.body.phone,
   });
-  try{
+  try {
     await updatedCustomer.save();
     res.send(updatedCustomer);
-  }
-  catch(ex){
-    res.status('400').send('Having trouble saving account details')
+  } catch (ex) {
+    res.status("400").send("Having trouble saving account details");
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   try {
     await Customer.deleteOne({ _id: req.params.id });
     res.send(await Customer.find());

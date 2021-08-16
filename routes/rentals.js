@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Fawn = require("fawn");
 const mongoose = require("mongoose");
+const auth = require("../middleware/auth");
 
 //local imports
 const { Rental, validate } = require("../models/rental");
@@ -13,9 +14,9 @@ Fawn.init(mongoose);
 router.get("/", async (req, res) => {
   const rentals = await Rental.find();
   res.send(rentals);
-}); 
+});
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) {
     return res.status(400).send(error.details[0].message);
@@ -64,7 +65,6 @@ router.post("/", async (req, res) => {
   } catch (ex) {
     res.status("500").send("Something failed");
   }
-
 });
 
 module.exports = router;
