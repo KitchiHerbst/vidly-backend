@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 
 //local imports
 const { Genre, validate } = require("../models/genre");
@@ -47,7 +48,7 @@ router.put("/:id", auth, async (req, res) => {
   }
 });
 
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:id", [auth, admin], async (req, res) => {
   try {
     await Genre.deleteOne({ _id: req.params.id });
     res.send(await Genre.find());
