@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const mongoose = require('mongoose')
 
 //local imports
 const {User, validate } = require('../models/user')
@@ -10,7 +11,10 @@ router.post('/', async (req, res) => {
         return res.status(400).send(error.details[0].message)
     }
 
-    const user = new User ({
+    let user = await User.findOne( {email: req.body.email} )
+    if(user) return res.status(400).send('user already registered')
+
+    user = new User ({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password
