@@ -7,8 +7,12 @@ const admin = require("../middleware/admin");
 const { Genre, validate } = require("../models/genre");
 
 router.get("/", async (req, res) => {
-  const genres = await Genre.find().sort("name");
-  res.send(genres);
+  try {
+    const genres = await Genre.find().sort("name");
+    res.send(genres);
+  } catch (ex) {
+    res.status(500).send("Something failed");
+  }
 });
 
 router.get("/:id", async (req, res) => {
