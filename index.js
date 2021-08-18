@@ -18,6 +18,7 @@ const auth = require("./routes/auth");
 const { custom } = require("joi");
 const movies = require("./routes/movies");
 const config = require("config");
+const error = require('./middleware/error')
 
 if (!config.get("jwtPrivateKey")) {
   console.log("FATAL ERROR: jwt is not defined");
@@ -35,6 +36,8 @@ if (app.get("env") === "development") {
   app.use(morgan("tiny"));
   debug("Morgan Enabled");
 }
+
+
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -46,6 +49,10 @@ app.use("/api/movies", movies);
 app.use("/api/rentals", rentals);
 app.use("/api/auth", auth);
 app.use("/", home);
+
+//error middleware
+app.use(error)
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`listening on ${port}`));
