@@ -7,6 +7,11 @@ const logConfiguration = {
         level: 'error',
         filename: 'logfile.log'
       }),
+      new winston.transports.Console({
+        colorize: true,
+        prettyPrint: true,
+        level: 'error'
+      }),
       // new winston.transports.MongoDB ({
       //   level: 'error',
       //   db: 'mongodb://localhost/vidly'
