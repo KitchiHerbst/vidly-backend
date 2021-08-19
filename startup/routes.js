@@ -1,12 +1,12 @@
 const express = require("express");
-const genres = require("./routes/genres");
-const home = require("./routes/home");
-const customers = require("./routes/customers");
-const rentals = require("./routes/rentals");
-const users = require("./routes/users");
-const auth = require("./routes/auth");
-const movies = require("./routes/movies");
-const error = require('./middleware/error');
+const genres = require("../routes/genres");
+const home = require("../routes/home");
+const customers = require("../routes/customers");
+const rentals = require("../routes/rentals");
+const users = require("../routes/users");
+const auth = require("../routes/auth");
+const movies = require("../routes/movies");
+const error = require('../middleware/error');
 const helmet = require("helmet");
 
 
