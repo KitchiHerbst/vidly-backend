@@ -6,21 +6,10 @@ const admin = require("../middleware/admin");
 //local imports
 const { Genre, validate } = require("../models/genre");
 
-function asyncMiddleware(handler) {
-  return async (req, res, next) => {
-    try {
-      await handler(req, res);
-    } catch (ex) {
-      next(ex);
-    }
-  };
-};
-
-router.get("/", asyncMiddleware(async (req, res) => {
-    const genres = await Genre.find().sort("name");
-    res.send(genres);
-  })
-);
+router.get("/", async (req, res) => {
+  const genres = await Genre.find().sort("name");
+  res.send(genres);
+});
 
 router.get("/:id", async (req, res) => {
   const genre = await Genre.findById(req.params.id);

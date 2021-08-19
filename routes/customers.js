@@ -4,6 +4,8 @@ const auth = require("../middleware/auth");
 
 //local imports
 const { Customer, validate } = require("../models/customer");
+const asyncMiddleware = require("../middleware/async");
+
 
 router.get("/", async (req, res) => {
   const customers = await Customer.find();
