@@ -1,4 +1,6 @@
 const express = require("express");
+
+const logger = require("./winston/infoLogger");
 const app = express();
 // const morgan = require("morgan");
 
@@ -16,4 +18,4 @@ require("./startup/validation")();
 // throw new Error('bingo error')
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`listening on ${port}`));
+app.listen(port, () => logger.info(`listening on ${port}`));

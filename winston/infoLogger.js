@@ -7,10 +7,10 @@ const logConfiguration = {
         level: 'info',
         filename: 'logfile.log'
       }),
-      new winston.transports.MongoDB ({
-        level: 'info',
-        db: 'mongodb://localhost/vidly'
-      })
+      // new winston.transports.MongoDB ({
+      //   level: 'info',
+      //   db: 'mongodb://localhost/vidly'
+      // })
     ]
   }
   
