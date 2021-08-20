@@ -5,6 +5,7 @@ const admin = require("../middleware/admin");
 
 //local imports
 const { Genre, validate } = require("../models/genre");
+const validateObjectId = require("../middleware/validateObjectId");
 
 router.get("/", async (req, res) => {
   // throw new Error('Could not get genres')
@@ -12,7 +13,7 @@ router.get("/", async (req, res) => {
   res.send(genres);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", validateObjectId, async (req, res) => {
   const genre = await Genre.findById(req.params.id);
   res.send(genre);
 });

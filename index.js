@@ -5,7 +5,7 @@ const app = express();
 // const morgan = require("morgan");
 
 //local imports
-require("./startup/logging");
+require("./startup/logging")();
 require("./startup/routes")(app);
 require("./startup/db")();
 require("./startup/config")();
@@ -18,4 +18,6 @@ require("./startup/validation")();
 // throw new Error('bingo error')
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => logger.info(`listening on ${port}`));
+const server = app.listen(port, () => logger.info(`listening on ${port}`));
+
+module.exports = server
