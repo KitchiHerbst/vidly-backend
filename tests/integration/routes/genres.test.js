@@ -1,13 +1,13 @@
 let server;
 
 const request = require("supertest");
-const { Genre } = require("../../models/genre");
-const { User } = require("../../models/user");
+const { Genre } = require("../../../models/genre");
+const { User } = require("../../../models/user");
 
 describe("/api/genres", () => {
   //opening and closing server
   beforeEach(() => {
-    server = require("../../index");
+    server = require("../../../index");
   });
   afterEach(async () => {
     server.close();
