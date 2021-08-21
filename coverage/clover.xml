@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1629569992982" clover="3.2.0">
-  <project timestamp="1629569992982" name="All files">
-    <metrics statements="334" coveredstatements="205" conditionals="44" coveredconditionals="9" methods="42" coveredmethods="14" elements="420" coveredelements="228" complexity="0" loc="334" ncloc="334" packages="6" files="25" classes="25"/>
+<coverage generated="1629570642163" clover="3.2.0">
+  <project timestamp="1629570642164" name="All files">
+    <metrics statements="335" coveredstatements="206" conditionals="46" coveredconditionals="11" methods="42" coveredmethods="14" elements="423" coveredelements="231" complexity="0" loc="335" ncloc="335" packages="6" files="25" classes="25"/>
     <package name="vidly">
       <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
       <file name="index.js" path="/Users/kitchi/node-practice/vidly/index.js">
@@ -60,9 +60,9 @@
         <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
-        <line num="4" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
       </file>
     </package>
     <package name="vidly.models">
@@ -139,7 +139,7 @@
       </file>
     </package>
     <package name="vidly.routes">
-      <metrics statements="190" coveredstatements="80" conditionals="34" coveredconditionals="2" methods="22" coveredmethods="3"/>
+      <metrics statements="191" coveredstatements="81" conditionals="36" coveredconditionals="4" methods="22" coveredmethods="3"/>
       <file name="auth.js" path="/Users/kitchi/node-practice/vidly/routes/auth.js">
         <metrics statements="19" coveredstatements="9" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="2" count="2" type="stmt"/>
@@ -202,7 +202,7 @@
         <line num="77" count="2" type="stmt"/>
       </file>
       <file name="genres.js" path="/Users/kitchi/node-practice/vidly/routes/genres.js">
-        <metrics statements="37" coveredstatements="23" conditionals="4" coveredconditionals="2" methods="5" coveredmethods="3"/>
+        <metrics statements="38" coveredstatements="24" conditionals="6" coveredconditionals="4" methods="5" coveredmethods="3"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -213,33 +213,34 @@
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
         <line num="16" count="2" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="22" count="5" type="stmt"/>
-        <line num="23" count="5" type="cond" truecount="2" falsecount="0"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="28" count="3" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="23" count="5" type="stmt"/>
+        <line num="24" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
         <line num="29" count="3" type="stmt"/>
         <line num="30" count="3" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="36" count="2" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="40" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="42" count="0" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
         <line num="46" count="0" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="53" count="2" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
         <line num="55" count="0" type="stmt"/>
         <line num="56" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="62" count="2" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="63" count="2" type="stmt"/>
       </file>
       <file name="home.js" path="/Users/kitchi/node-practice/vidly/routes/home.js">
         <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>

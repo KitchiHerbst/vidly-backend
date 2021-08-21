@@ -3,6 +3,7 @@ let server;
 const request = require("supertest");
 const { Genre } = require("../../../models/genre");
 const { User } = require("../../../models/user");
+const mongoose = require("mongoose");
 
 describe("/api/genres", () => {
   //opening and closing server
@@ -41,6 +42,13 @@ describe("/api/genres", () => {
 
     it("should return an error message if the id is invalid", async () => {
       const res = await request(server).get(`/api/genres/1`);
+      expect(res.status).toBe(404);
+    });
+
+    it("should return an error message if no genre matches the id given", async () => {
+      const res = await request(server).get(
+        `/api/genres/${mongoose.Types.ObjectId()}`
+      );
       expect(res.status).toBe(404);
     });
   });
