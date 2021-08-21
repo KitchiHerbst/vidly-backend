@@ -34,7 +34,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-router.put("/:id", auth, async (req, res) => {
+router.put("/:id", [validateObjectId, auth], async (req, res) => {
   const genre = await Genre.findById(req.params.id);
   if (!genre) return res.status(404).send("Invalid GenreId");
 
@@ -52,7 +52,7 @@ router.put("/:id", auth, async (req, res) => {
   }
 });
 
-router.delete("/:id", [auth, admin], async (req, res) => {
+router.delete("/:id", [validateObjectId, auth, admin], async (req, res) => {
   const genre = await Genre.findById(req.params.id);
   if (!genre) return res.status(404).send("Invalid GenreId");
 
