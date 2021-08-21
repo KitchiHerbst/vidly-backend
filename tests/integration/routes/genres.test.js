@@ -110,25 +110,78 @@ describe("/api/genres", () => {
   describe("PUT /:id", () => {
     let token;
     let name;
+    let genreId;
 
     const execute = async () => {
       return await request(server)
-        .post("/api/genres")
+        .put("/api/genres/" + genreId)
         .set("x-auth-token", token)
         .send({ name: name });
     };
 
-    beforeEach(() => {
+    beforeEach(async () => {
       token = new User().generateAuthToken();
-      name = "genre1";
+      const genre = new Genre({ name: "genre1" });
+      await genre.save();
+      name = "genrePut";
+      genreId = genre._id;
     });
 
     it("should return 401 if client is not logged in", async () => {
       token = "";
 
       const res = await execute();
-
       expect(res.status).toBe(401);
     });
+
+    it("should return 400 if genre name is less than 3 characters", async () => {
+      name = "g";
+      const res = await execute();
+      expect(res.status).toBe(400);
+    });
+
+    it("should return an error message if the id is invalid", async () => {
+      const res = await request(server).get(`/api/genres/1`);
+      expect(res.status).toBe(404);
+    });
+
+    it("should return an error message if no genre matches the id given", async () => {
+      const res = await request(server).get(
+        `/api/genres/${mongoose.Types.ObjectId()}`
+      );
+      expect(res.status).toBe(404);
+    });
+
+    it("returns the genre in the body of the response", async () => {
+      const res = await execute();
+      expect(res.body).toHaveProperty("_id");
+      expect(res.body).toHaveProperty("name", "genrePut");
+    });
+  });
+
+  describe("DELETE /:id", () => {
+    let token;
+    let genreId;
+
+    const execute = async () => {
+      return await request(server)
+        .delete("/api/genres/" + genreId)
+        .set("x-auth-token", token)
+    };
+
+    beforeEach(async () => {
+      token = new User().generateAuthToken();
+      const genre = new Genre({ name: "genre1" });
+      await genre.save();
+      genreId = genre._id;
+    });
+
+    it("should return 401 if client is not logged in", async () => {
+      token = "";
+
+      const res = await execute();
+      expect(res.status).toBe(401);
+    });
+    
   });
 });

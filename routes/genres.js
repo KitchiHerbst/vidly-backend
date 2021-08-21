@@ -36,24 +36,28 @@ router.post("/", auth, async (req, res) => {
 
 router.put("/:id", auth, async (req, res) => {
   const genre = await Genre.findById(req.params.id);
+  if (!genre) return res.status(404).send("Invalid GenreId");
 
   const { error } = validate(req.body.name);
   if (error) {
-    return res.send(error.details[0].message);
+    return res.status(400).send(error.details[0].message);
   }
 
   genre.name = req.body.name;
   try {
     await genre.save();
-    res.send(updatedGenre);
+    res.send(genre);
   } catch (ex) {
     res.status(400).send("Can't update genre right now");
   }
 });
 
 router.delete("/:id", [auth, admin], async (req, res) => {
+  const genre = await Genre.findById(req.params.id);
+  if (!genre) return res.status(404).send("Invalid GenreId");
+
   try {
-    await Genre.deleteOne({ _id: req.params.id });
+    await Genre.deleteOne(genre);
     res.send(await Genre.find());
   } catch (ex) {
     res.send(ex.message);
