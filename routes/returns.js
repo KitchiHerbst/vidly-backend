@@ -22,7 +22,11 @@ router.post("/", auth, async (req, res) => {
     return res.status(400).send("Return has been processed");
   }
 
-  res.send("bingo");
+  rental.dateReturned = new Date();
+
+  await rental.save();
+
+  res.send(rental);
 });
 
 module.exports = router;

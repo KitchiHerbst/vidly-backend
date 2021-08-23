@@ -67,9 +67,17 @@ describe("/api/returns", () => {
   });
 
   it("should return 200 if everything is valid", async () => {
-      const res = await execute()
-      expect(res.status).toBe(200)
-  })
+    const res = await execute();
+    expect(res.status).toBe(200);
+    expect(res.body.dateReturned).toBeTruthy();
+  });
+
+  it("should set the date returned property of the rental", async () => {
+    const res = await execute();
+    const rentalInDb = await Rental.findById(rental._id);
+    const dif = new Date() - rentalInDb.dateReturned
+    expect(dif).toBeLessThan(10 * 1000)
+  });
 });
 
 // return 401 if client is not logged in
