@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1629580047099" clover="3.2.0">
-  <project timestamp="1629580047099" name="All files">
+<coverage generated="1629745410358" clover="3.2.0">
+  <project timestamp="1629745410358" name="All files">
     <metrics statements="338" coveredstatements="223" conditionals="50" coveredconditionals="19" methods="42" coveredmethods="17" elements="430" coveredelements="259" complexity="0" loc="338" ncloc="338" packages="6" files="25" classes="25"/>
     <package name="vidly">
       <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
