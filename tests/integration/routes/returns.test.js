@@ -24,8 +24,8 @@ describe("/api/returns", () => {
     await rental.save();
   });
   afterEach(async () => {
-      await Rental.deleteMany();
-      await server.close();
+    await Rental.deleteMany();
+    await server.close();
   });
 
   const execute = () => {
@@ -51,6 +51,12 @@ describe("/api/returns", () => {
     movieId = "";
     const res = await execute();
     expect(res.status).toBe(400);
+  });
+
+  it("should return 404 if no rental is found with given ids", async () => {
+    await Rental.deleteMany();
+    const res = execute();
+    expect(res.status).toBe(404);
   });
 });
 
