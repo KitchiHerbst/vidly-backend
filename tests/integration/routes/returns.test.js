@@ -24,8 +24,8 @@ describe("/api/returns", () => {
     await rental.save();
   });
   afterEach(async () => {
-    server.close();
-    await Rental.deleteMany();
+      await Rental.deleteMany();
+      await server.close();
   });
 
   const execute = () => {
@@ -40,6 +40,18 @@ describe("/api/returns", () => {
     const res = await execute();
     expect(res.status).toBe(401);
   });
+
+  it("should return 400 if customer id is not provided", async () => {
+    customerId = "";
+    const res = await execute();
+    expect(res.status).toBe(400);
+  });
+
+  it("should return 400 if movie id is not provided", async () => {
+    movieId = "";
+    const res = await execute();
+    expect(res.status).toBe(400);
+  });
 });
 
 // return 401 if client is not logged in
@@ -51,5 +63,5 @@ describe("/api/returns", () => {
 // return 200 if valid request
 // set return date
 // calculate rental fee
-// increase stock of movie 
+// increase stock of movie
 // return the rental

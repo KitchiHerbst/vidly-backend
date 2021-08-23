@@ -1,4 +1,4 @@
-let server
+let server;
 
 const request = require("supertest");
 const { Genre } = require("../../../models/genre");
@@ -9,8 +9,8 @@ describe("Authorization Middleware", () => {
     server = require("../../../index");
   });
   afterEach(async () => {
-    server.close();
     await Genre.deleteMany();
+    await server.close();
   });
 
   let token;
