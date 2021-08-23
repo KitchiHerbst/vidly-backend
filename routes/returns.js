@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require("../middleware/auth");
 const { Rental } = require("../models/rental");
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   if (!req.body.customerId) {
     return res.status(400).send("must include customer id");
   }
@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
     return res.status(400).send("Return has been processed");
   }
 
-  res.status(401).send("unauthorized");
+  res.send("bingo");
 });
 
 module.exports = router;

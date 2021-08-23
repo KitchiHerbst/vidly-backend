@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1629748694252" clover="3.2.0">
-  <project timestamp="1629748694252" name="All files">
+<coverage generated="1629749322748" clover="3.2.0">
+  <project timestamp="1629749322749" name="All files">
     <metrics statements="356" coveredstatements="241" conditionals="58" coveredconditionals="27" methods="43" coveredmethods="18" elements="457" coveredelements="286" complexity="0" loc="356" ncloc="356" packages="6" files="26" classes="26"/>
     <package name="vidly">
       <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
@@ -41,12 +41,12 @@
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
-        <line num="5" count="17" type="stmt"/>
-        <line num="6" count="17" type="cond" truecount="2" falsecount="0"/>
-        <line num="8" count="13" type="stmt"/>
-        <line num="9" count="13" type="stmt"/>
-        <line num="10" count="12" type="stmt"/>
-        <line num="11" count="12" type="stmt"/>
+        <line num="5" count="23" type="stmt"/>
+        <line num="6" count="23" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="18" type="stmt"/>
+        <line num="9" count="18" type="stmt"/>
+        <line num="10" count="17" type="stmt"/>
+        <line num="11" count="17" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
       </file>
       <file name="error.js" path="/Users/kitchi/node-practice/vidly/middleware/error.js">
@@ -127,8 +127,8 @@
         <line num="4" count="5" type="stmt"/>
         <line num="6" count="5" type="stmt"/>
         <line num="32" count="5" type="stmt"/>
-        <line num="33" count="26" type="stmt"/>
-        <line num="34" count="26" type="stmt"/>
+        <line num="33" count="27" type="stmt"/>
+        <line num="34" count="27" type="stmt"/>
         <line num="37" count="5" type="stmt"/>
         <line num="39" count="5" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
