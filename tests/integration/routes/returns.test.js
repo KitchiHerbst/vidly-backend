@@ -3,8 +3,7 @@ const { Rental } = require("../../../models/rental");
 const { User } = require("../../../models/user");
 const mongoose = require("mongoose");
 const request = require("supertest");
-const { expectCt } = require("helmet");
-// const { expectCt } = require("helmet");
+const moment = require("moment");
 
 describe("/api/returns", () => {
   let customerId;
@@ -80,7 +79,11 @@ describe("/api/returns", () => {
   });
 
   it("should set the rental fee", async () => {
-      const res = await execute()
+    rental.dateOut = moment().add(-7, "days").toDate();
+    await rental.save();
+    const res = await execute();
+    const rentalInDb = await Rental.findById(rental._id);
+    expect(rentalInDb.rentalFee).toBe(14);
   });
 });
 
