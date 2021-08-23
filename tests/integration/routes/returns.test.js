@@ -55,9 +55,21 @@ describe("/api/returns", () => {
 
   it("should return 404 if no rental is found with given ids", async () => {
     await Rental.deleteMany();
-    const res = execute();
+    const res = await execute();
     expect(res.status).toBe(404);
   });
+
+  it("should return 400 if rental already has a return date", async () => {
+    rental.dateReturned = Date.now();
+    await rental.save();
+    const res = await execute();
+    expect(res.status).toBe(400);
+  });
+
+  it("should return 200 if everything is valid", async () => {
+      const res = await execute()
+      expect(res.status).toBe(200)
+  })
 });
 
 // return 401 if client is not logged in

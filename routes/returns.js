@@ -18,6 +18,10 @@ router.post("/", async (req, res) => {
     return res.status(404).send("rental not found");
   }
 
+  if (rental.dateReturned) {
+    return res.status(400).send("Return has been processed");
+  }
+
   res.status(401).send("unauthorized");
 });
 
