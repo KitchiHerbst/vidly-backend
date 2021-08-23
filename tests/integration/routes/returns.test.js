@@ -75,8 +75,12 @@ describe("/api/returns", () => {
   it("should set the date returned property of the rental", async () => {
     const res = await execute();
     const rentalInDb = await Rental.findById(rental._id);
-    const dif = new Date() - rentalInDb.dateReturned
-    expect(dif).toBeLessThan(10 * 1000)
+    const dif = new Date() - rentalInDb.dateReturned;
+    expect(dif).toBeLessThan(10 * 1000);
+  });
+
+  it("should set the rental fee", async () => {
+      const res = await execute()
   });
 });
 

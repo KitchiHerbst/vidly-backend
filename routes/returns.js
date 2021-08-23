@@ -23,7 +23,10 @@ router.post("/", auth, async (req, res) => {
   }
 
   rental.dateReturned = new Date();
-
+  const timeDif = rental.dateReturned.getTime() - rental.dateOut.getTime();
+  const dayDif = timeDif / (1000 * 3600 * 24);
+  const cost = rental.movie.dailyRentalRate * dayDif;
+  rental.rentalFee = cost;
   await rental.save();
 
   res.send(rental);
