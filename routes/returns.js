@@ -4,18 +4,23 @@ const auth = require("../middleware/auth");
 const { Rental } = require("../models/rental");
 const moment = require("moment");
 const { Movie } = require("../models/movie");
+const Joi = require("joi");
+const validate = require("../middleware/validateRequest");
 
-router.post("/", auth, async (req, res) => {
-  if (!req.body.customerId) {
-    return res.status(400).send("must include customer id");
-  }
-  if (!req.body.movieId) {
-    return res.status(400).send("must include movie id");
-  }
+const validateReturn = ({ customerId, movieId }) => {
+  const schema = Joi.object({
+    customerId: Joi.objectId().required(),
+    movieId: Joi.objectId().required(),
+  });
+  return schema.validate({ customerId: customerId, movieId: movieId });
+};
+
+router.post("/", [auth, validate(validateReturn)], async (req, res) => {
   const rental = await Rental.findOne({
     "customer._id": req.body.customerId,
     "movie._id": req.body.movieId,
   });
+
   if (!rental) {
     return res.status(404).send("rental not found");
   }

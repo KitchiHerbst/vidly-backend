@@ -3,10 +3,10 @@ require('winston-mongodb')
 
 const logConfiguration = {
     transports: [
-      new winston.transports.File ({
-        level: 'info',
-        filename: 'logfile.log'
-      }),
+      // new winston.transports.File ({
+      //   level: 'info',
+      //   filename: 'logfile.log'
+      // }),
       new winston.transports.Console({
         colorize: true,
         prettyPrint: true,
