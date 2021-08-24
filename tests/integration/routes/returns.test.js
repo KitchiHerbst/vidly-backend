@@ -41,6 +41,7 @@ describe("/api/returns", () => {
   });
   afterEach(async () => {
     await Rental.deleteMany();
+    await Movie.deleteMany();
     await server.close();
   });
 
@@ -109,11 +110,21 @@ describe("/api/returns", () => {
     expect(movieDb.numberInStock).toBe(2);
   });
 
-  it("should return the rental with rentalFee and dateReturned", async () => {
+  it("should return the rental if input is valid", async () => {
     rental.dateOut = moment().add(-7, "days").toDate();
     await rental.save();
     const res = await execute();
-    expect(res.body).toHaveProperty("rentalFee", 14);
+    const rentalDb = await Rental.findById(rental._id);
+
+    expect(Object.keys(res.body)).toEqual(
+      expect.arrayContaining([
+        "dateOut",
+        "dateReturned",
+        "rentalFee",
+        "movie",
+        "customer",
+      ])
+    );
   });
 });
 

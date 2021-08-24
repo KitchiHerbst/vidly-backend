@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1629765263872" clover="3.2.0">
-  <project timestamp="1629765263872" name="All files">
+<coverage generated="1629766206079" clover="3.2.0">
+  <project timestamp="1629766206079" name="All files">
     <metrics statements="363" coveredstatements="248" conditionals="58" coveredconditionals="27" methods="43" coveredmethods="18" elements="464" coveredelements="293" complexity="0" loc="363" ncloc="363" packages="6" files="26" classes="26"/>
     <package name="vidly">
       <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
@@ -351,9 +351,9 @@
         <line num="28" count="5" type="stmt"/>
         <line num="29" count="5" type="stmt"/>
         <line num="30" count="5" type="stmt"/>
-        <line num="35" count="5" type="stmt"/>
-        <line num="40" count="5" type="stmt"/>
-        <line num="43" count="3" type="stmt"/>
+        <line num="32" count="5" type="stmt"/>
+        <line num="37" count="5" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
       </file>
       <file name="users.js" path="/Users/kitchi/node-practice/vidly/routes/users.js">
         <metrics statements="23" coveredstatements="10" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
